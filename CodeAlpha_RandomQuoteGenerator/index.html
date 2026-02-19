@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InspoStream - Daily Inspiration</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Icons (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="ph-fill ph-quotes"></i>
+                <span>InspoStream</span>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-section">
+                    <span class="nav-label">Menu</span>
+                    <a href="#" class="nav-item active" data-target="home">
+                        <i class="ph ph-house"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="#" class="nav-item" data-target="favorites">
+                        <i class="ph ph-heart"></i>
+                        <span>Favorites</span>
+                    </a>
+                    <a href="#" class="nav-item" data-target="discover">
+                        <i class="ph ph-compass"></i>
+                        <span>Discover</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <span class="nav-label">Library</span>
+                    <a href="#" class="nav-item" data-target="authors">
+                        <i class="ph ph-user"></i>
+                        <span>Authors</span>
+                    </a>
+                    <a href="#" class="nav-item" data-target="collections">
+                        <i class="ph ph-notebook"></i>
+                        <span>Collections</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-cta">
+                <div class="cta-content">
+                    <p>Need a spark?</p>
+                    <button id="sidebar-new-quote-btn" class="btn-primary">
+                        Generate New
+                    </button>
+                </div>
+            </div>
+
+            <div class="user-profile">
+                <div class="avatar">
+                    <i class="ph-fill ph-user-circle"></i>
+                </div>
+                <div class="user-info">
+                    <span class="name">Guest User</span>
+                    <span class="status">Free Plan</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" id="search-input" placeholder="Search for inspiration...">
+                </div>
+                <div class="top-actions">
+                    <div class="settings-container" style="position: relative;">
+                        <button id="settings-btn" class="icon-btn"><i class="ph ph-gear"></i></button>
+
+                        <!-- Settings Dropdown -->
+                        <div id="settings-dropdown" class="settings-dropdown hidden">
+                            <div class="setting-item">
+                                <span>Dark Mode</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="theme-toggle" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- VIEW: HOME (Default) -->
+            <div id="view-home" class="view-section">
+                <section class="hero-section">
+                    <div class="hero-bg"></div>
+                    <div class="hero-content">
+                        <div class="badge">
+                            <i class="ph-fill ph-sparkle"></i> Daily Pick
+                        </div>
+                        <h1 id="quote-text" class="hero-quote">
+                            "Loading..."
+                        </h1>
+                        <div class="hero-footer">
+                            <div class="author-info">
+                                <div class="author-avatar-placeholder">
+                                    <i class="ph-fill ph-feather"></i>
+                                </div>
+                                <div>
+                                    <span class="hero-label">Author</span>
+                                    <h3 id="quote-author" class="hero-author">Unknown</h3>
+                                </div>
+                            </div>
+                            <div class="hero-actions">
+                                <button id="hero-like-btn" class="action-btn" aria-label="Like">
+                                    <i class="ph ph-heart"></i> <span id="like-count">1.2k</span>
+                                </button>
+                                <button id="hero-share-btn" class="action-btn" aria-label="Share"><i
+                                        class="ph ph-share-fat"></i> Share</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-list-section">
+                    <div class="section-header">
+                        <h2>Recent History</h2>
+                    </div>
+                    <div class="list-header">
+                        <span class="col-1">#</span>
+                        <span class="col-2">Quote</span>
+                        <span class="col-3">Author</span>
+                        <span class="col-4">Category</span>
+                        <span class="col-5"></span>
+                    </div>
+                    <div id="history-list" class="items-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- VIEW: FAVORITES -->
+            <div id="view-favorites" class="view-section hidden">
+                <div class="section-header">
+                    <h2>Your Favorites</h2>
+                </div>
+                <div id="favorites-list" class="items-list">
+                    <!-- Populated by JS -->
+                    <div class="empty-state">No favorites yet. Start exploring!</div>
+                </div>
+            </div>
+
+            <!-- VIEW: DISCOVER -->
+            <div id="view-discover" class="view-section hidden">
+                <div class="section-header">
+                    <h2>Discover New Inspiration</h2>
+                </div>
+                <div id="discover-grid" class="card-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- VIEW: AUTHORS -->
+            <div id="view-authors" class="view-section hidden">
+                <div class="section-header">
+                    <h2>Authors</h2>
+                </div>
+                <div id="authors-grid" class="author-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- VIEW: COLLECTIONS -->
+            <div id="view-collections" class="view-section hidden">
+                <div class="section-header">
+                    <h2>Collections</h2>
+                </div>
+                <div id="collections-grid" class="collection-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- VIEW: FILTERED RESULTS (Dynamic) -->
+            <div id="view-filtered" class="view-section hidden">
+                <div class="section-header">
+                    <h2 id="filtered-title">Results</h2>
+                    <button class="btn-text" id="back-btn"
+                        style="background:none; border:none; color:var(--text-secondary); cursor:pointer; font-size:0.9rem;">
+                        <i class="ph ph-arrow-left"></i> Back
+                    </button>
+                </div>
+                <div id="filtered-grid" class="card-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Right Sidebar (Contextual Info) -->
+        <aside class="right-sidebar">
+            <div class="panel-header">
+                <h3>Trending Authors</h3>
+            </div>
+
+            <div id="trending-authors-list" class="top-cards">
+                <!-- Populated by JS -->
+            </div>
+
+            <div class="now-playing-panel">
+                <h4>Suggested</h4>
+                <div class="suggestion-card">
+                    <p id="suggested-quote-text" class="suggestion-text">"Loading..."</p>
+                    <span id="suggested-quote-author" class="suggestion-author">- Unknown</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="share-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Share this Quote</h3>
+                <button id="close-modal" class="icon-btn"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="share-preview" class="share-preview-text">"Quote text..."</p>
+
+                <div class="share-options">
+                    <a href="#" id="share-x" target="_blank" class="share-btn x-twitter">
+                        <i class="ph-fill ph-x-logo"></i> X (Twitter)
+                    </a>
+                    <a href="#" id="share-whatsapp" target="_blank" class="share-btn whatsapp">
+                        <i class="ph-fill ph-whatsapp-logo"></i> WhatsApp
+                    </a>
+                    <!-- Instagram/Threads don't have direct text share web intents, usually require copy or native share -->
+                    <button id="share-copy" class="share-btn copy-btn">
+                        <i class="ph ph-copy"></i> Copy Text
+                    </button>
+                    <button id="share-native" class="share-btn native-btn hidden">
+                        <i class="ph ph-share-network"></i> More Apps
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>

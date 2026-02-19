@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaPro | Mastery Edition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=2">
+    <script>
+        window.addEventListener('error', function (event) {
+            alert("Global Error: " + event.message + "\nAt: " + event.filename + ":" + event.lineno);
+            console.error("Global Error:", event);
+        });
+    </script>
+</head>
+
+<body>
+    <div class="ambient-light ambient-1"></div>
+    <div class="ambient-light ambient-2"></div>
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <span style="color:var(--primary); font-size: 2rem">✦</span>
+                LinguaPro
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-label">Languages</div>
+                <div id="lang-list">
+                    <!-- Injected JS -->
+                </div>
+            </div>
+
+            <div class="nav-section" style="margin-top:auto">
+                <div class="nav-label">Your Mastery</div>
+                <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
+                    <div id="mastery-total-bar"
+                        style="width: 0%; height: 100%; background: var(--success); transition: width 1s ease;"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Header -->
+        <header class="header">
+            <h2 id="current-category-title" style="font-size: 1.25rem; font-weight: 500; color: var(--text-muted)">All
+                Categories</h2>
+            <div class="stats-container">
+                <div class="stat-badge">
+                    <span class="streak-fire">🔥</span>
+                    <span id="streak-counter">0</span>
+                    <span style="color:var(--text-muted); font-size: 0.8em; margin-left: 2px">Day Streak</span>
+                </div>
+                <div class="stat-badge">
+                    <span class="xp-star">✨</span>
+                    <span id="xp-counter">0</span>
+                    <span style="color:var(--text-muted); font-size: 0.8em; margin-left: 2px">XP</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Stage -->
+        <main class="main-stage">
+            <div class="mode-tabs">
+                <button class="tab-btn active" onclick="window.app.setMode('flashcard')">Learn</button>
+                <button class="tab-btn" onclick="window.app.setMode('quiz')">Quiz</button>
+                <button class="tab-btn" onclick="window.app.setMode('pronounce')">Speak</button>
+            </div>
+
+            <div id="stage-content" style="width: 100%; display: flex; justify-content: center; position: relative;">
+                <!-- Content injected here -->
+            </div>
+
+            <div class="kbd-hints">
+                <span><span class="kbd">Space</span> Flip</span>
+                <span><span class="kbd">→</span> Next</span>
+                <span><span class="kbd">R</span> Replay</span>
+            </div>
+
+            <div id="feedback-toast"
+                style="position:fixed; bottom: 3rem; background: var(--bg-deep); border: 1px solid var(--border-glass); padding: 1rem 2rem; border-radius: 50px; transform: translateY(100px); opacity: 0; transition: all 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                Correct!
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app.js?v=2"></script>
+</body>
+
+</html>
